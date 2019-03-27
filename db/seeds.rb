@@ -1,7 +1,7 @@
 User.create!(name:  "Example User",
-             email: "example@railstutorial.org",
-             password:              "foobar",
-             password_confirmation: "foobar",
+             email: "n-manh@ruby-dev.jp",
+             password:              "0915827299",
+             password_confirmation: "0915827299",
              admin: true)
 
 20.times do |n|
@@ -15,8 +15,8 @@ User.create!(name:  "Example User",
 end
 
 30.times do |n|
-  title = Faker::Name.title+" #{n+1}"
-  body = Faker::Lorem.sentences(20)
+  title = Faker::Lorem.sentence+" #{n+1}"
+  body = Faker::Lorem.sentences(3)
   Category.create!(title: title, body: body)
 end
 
@@ -44,4 +44,3 @@ following = users[2..50]
 followers = users[3..40]
 following.each { |followed| user.follow(followed) }
 followers.each { |follower| follower.follow(user) }
-
