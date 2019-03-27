@@ -67,4 +67,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'bcrypt'
 gem 'will_paginate'
-gem 'rubocop'
+gem "rubocop"
