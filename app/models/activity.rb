@@ -1,17 +1,31 @@
-class Activity < ActiveRecord::Base
+class Activity < ApplicationRecord
   belongs_to :user
 
   def message
-    case self.action_type.downcase
+    case action_type.downcase
     when "learn"
-      lesson = Lesson.find self.target_id
-      return "#{self.user.name} learned #{lesson.score}/20 in #{lesson.category.title}"
+      learn
     when "follow"
-      followed_user = User.find self.target_id
-      return "#{self.user.name} followed #{followed_user.name}"
+      follow
     when "unfollow"
-      unfollowed_user = User.find self.target_id
-      return "#{self.user.name} unfollowed #{followed_user.name}"
+      unfollow
     end
+  end
+
+  private
+
+  def learn
+    lesson = Lesson.find target_id
+    "#{user.name} learned #{lesson.score}/20 in #{lesson.category.title}"
+  end
+
+  def follow
+    followed_user = User.find target_id
+    "#{user.name} followed #{followed_user.name}"
+  end
+
+  def unfollow
+    unfollowed_user = User.find target_id
+    "#{user.name} unfollowed #{unfollowed_user.name}"
   end
 end

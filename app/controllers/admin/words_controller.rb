@@ -15,7 +15,7 @@ class Admin::WordsController < ApplicationController
       @category = Category.find params[:category_id]
       @word = @category.words.new
     end
-    4.times {@word.answers.build}
+    4.times { @word.answers.build }
   end
 
   def edit
@@ -28,16 +28,14 @@ class Admin::WordsController < ApplicationController
   end
 
   def create
-    if params[:category_id].blank?
-      @word = Word.new word_params
-    else
-      @category = Category.find params[:category_id]
-      @word = @category.words.new word_params
-    end
-      
+    @word = if category
+              @category.words.new word_params
+            else
+              Word.new word_params
+            end
+
     if @word.save
-      flash[:success] = "New word created!"
-      redirect_to admin_categories_path
+      redirect_to admin_categories_path, success: "New word created!"
     else
       render :new
     end
@@ -45,7 +43,7 @@ class Admin::WordsController < ApplicationController
 
   def update
     @word = Word.find params[:id]
-    if @word.update_attributes word_params
+    if @word.update word_params
       flash[:success] = "Word updated"
       redirect_to admin_words_url
     else
@@ -60,7 +58,12 @@ class Admin::WordsController < ApplicationController
   end
 
   private
+
   def word_params
-    params.require(:word).permit :japanese, :category_id, answers_attributes: [:id, :content, :correct, :_destroy] 
+    params.require(:word).permit :japanese, :category_id, answers_attributes: [:id, :content, :correct, :_destroy]
+  end
+
+  def category
+    @category ||= Category.find params[:category_id] if params[:category_id].present?
   end
 end

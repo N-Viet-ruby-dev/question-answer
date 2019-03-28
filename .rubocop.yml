@@ -1,18 +1,49 @@
 inherit_from: .rubocop_todo.yml
 
-Metrics/LineLength:
-  Max: 120
 
-Metrics/MethodLength: 
-  Max: 20
+# Common configuration.
+Rails:
+  Enabled: true
+
+Rails/HasAndBelongsToMany:
+  Enabled: false
 
 Metrics/ClassLength:
-  Max: 1500
+  Max: 200
+
+Metrics/BlockLength:
+  Max: 35
+
+Metrics/MethodLength:
+  Max: 25
+
+Metrics/LineLength:
+  Max: 130
+  AllowURI: true
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
-AllCops:
-  Exclude:
-    - 'db'
-    - 'node_modules'
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+Style/Documentation:
+  Enabled: false
+
+Style/MixinUsage:
+  Enabled: false
+
+Style/RedundantBegin:
+  Enabled: false
+
+Style/Lambda:
+  EnforcedStyle: literal
+
+Style/AsciiComments:
+  Enabled: false
+
+
+
