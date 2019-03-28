@@ -1,7 +1,7 @@
 User.create!(name:  "Example User",
-             email: "n-manh@ruby-dev.jp",
-             password:              "0915827299",
-             password_confirmation: "0915827299",
+             email: "example@railstutorial.org",
+             password:              "foobar",
+             password_confirmation: "foobar",
              admin: true)
 
 20.times do |n|
