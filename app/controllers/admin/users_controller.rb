@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :logged_in_user
-  
+
   def new
     @user = User.new
   end
@@ -30,7 +30,7 @@ class Admin::UsersController < ApplicationController
 
   def update
     @user = User.find params[:id]
-    if @user.update_attributes user_params
+    if @user.update user_params
       flash[:success] = "Profile updated!"
       redirect_to @user
     else
@@ -46,8 +46,8 @@ class Admin::UsersController < ApplicationController
   end
 
   private
-  def user_params
-    params.require(:user).permit :name, :email, :password,:password_confirmation
-  end
 
+  def user_params
+    params.require(:user).permit :name, :email, :password, :password_confirmation
+  end
 end

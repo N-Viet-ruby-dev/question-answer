@@ -1,21 +1,32 @@
 class SessionsController < ApplicationController
-  def new
-  end
+  def new; end
 
   def create
     user = User.find_by email: params[:session][:email].downcase
-    if user && user.authenticate(params[:session][:password])
+    if user&.authenticate(params[:session][:password])
       log_in user
-      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      if user.admin?
-        redirect_to admin_path
-      else
-        redirect_back_or user
-      end 
+      func_two
+      func_one
     else
-      flash.now[:danger] = 'Invalid email or password combination'
-      render 'new'
+      func_three
     end
+  end
+
+  def func_one
+    if user.admin?
+      redirect_to admin_path
+    else
+      redirect_back_or user
+    end
+  end
+
+  def func_two
+    params[:session][:remember_me] == "1" ? remember(user) : forget(user)
+  end
+
+  def func_three
+    flash.now[:danger] = "Invalid email or password combination"
+    render "new"
   end
 
   def destroy
